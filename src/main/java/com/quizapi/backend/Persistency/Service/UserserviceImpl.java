@@ -2,6 +2,7 @@ package com.quizapi.backend.Persistency.Service;
 
 import com.quizapi.backend.Persistency.Entities.User;
 
+import org.hibernate.NonUniqueResultException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,10 +10,10 @@ import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
-public class UserserviceImpl implements Userservice {
+public class UserServiceImpl implements UserService {
 
     @Autowired
-    Userrepository userRepo;
+    UserRepository userRepo;
 
     @Override
     public boolean checkLogin(String loginname, String password) {
@@ -27,9 +28,17 @@ public class UserserviceImpl implements Userservice {
 
     @Override
     public User registerUser(User newUser) {
-        User checkUser = findUser(newUser.getUsername());
-        if (checkUser == null) {
-            return userRepo.save(newUser);
+        try {
+            User checkUser = findUser(newUser.getUsername()); // Throws Exception
+            if (checkUser == null) {
+                return userRepo.save(newUser);
+            }
+        } catch (NonUniqueResultException e) {
+            log.error("User is already taken", newUser);
+            return null;
+        } catch (Exception e) {
+            log.error("User is already taken", newUser);
+            return null;
         }
         return null;
     }

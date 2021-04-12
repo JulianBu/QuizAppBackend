@@ -1,7 +1,12 @@
 package com.quizapi.backend.Controller;
 
-import com.quizapi.backend.Persistency.Entities.User;
+import java.net.URISyntaxException;
 
+import com.quizapi.backend.Persistency.Entities.User;
+import com.quizapi.backend.Persistency.Service.UserService;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,23 +19,31 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class UserController {
 
+    @Autowired
+    private UserService userService;
+
     @PostMapping("/quizapp/register")
     @ResponseBody
-    public User register(@RequestBody User user) {
-        log.info("USERNAME " + user.toString());
-        User newUser = new User(user.getUsername(), user.getPassword());
-        User user2 = new User("user122", "abcd");
-        log.info("USER2 " + user2.toString());
-        return newUser;
+    public ResponseEntity<User> register(@RequestBody User user) throws URISyntaxException {
+        log.info("Incoming User " + user.toString());
+        User newUser = userService.registerUser(user);
+        if (newUser == null) {
+            log.info("User could not be saved.");
+            return ResponseEntity.ok(newUser);
+        } else {
+            log.info("THE NEW USER " + newUser.toString());
+            return ResponseEntity.ok(newUser);
+        }
     }
 
     @GetMapping("quizapp/login")
     @ResponseBody
     public User login() {
-        User newUser = new User("Username", "passwort");
-        User user2 = new User("user122", "abcd");
-        log.info("HELLO! " + newUser.toString());
-        log.info("USER2 " + user2.toString());
+        User u = new User("user1222", "abcd");
+        User newUser = userService.registerUser(u);
+
+        // log.info("HELLO! " + newUser.toString());
+        log.info("USER2 " + u.toString());
         return newUser;
     }
 }

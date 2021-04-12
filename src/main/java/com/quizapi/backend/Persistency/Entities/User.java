@@ -11,11 +11,13 @@ import javax.validation.constraints.Size;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @RequiredArgsConstructor
 @Entity
 @Table(name = "USER")
@@ -29,7 +31,7 @@ public class User implements Serializable {
 
     @NonNull
     @Size(min = 4, max = 20, message = "Username should be between 4 and 20 characters")
-    @Column(name = "USERNAME")
+    @Column(name = "USERNAME", unique = true)
     private String username;
 
     @NonNull
