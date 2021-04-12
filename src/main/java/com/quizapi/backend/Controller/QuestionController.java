@@ -1,8 +1,9 @@
 package com.quizapi.backend.Controller;
 
 import com.quizapi.backend.Persistency.Entities.Question;
-import com.quizapi.backend.Persistency.Entities.Questions;
+import com.quizapi.backend.Persistency.Service.QuestionService;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,10 +16,20 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class QuestionController {
 
+    @Autowired
+    private QuestionService QuestionService;
+
     @PostMapping("quizapp/insertQuestion")
     @ResponseBody
     public ResponseEntity<Question> insertQuestion(@RequestBody Question question) {
         log.info("Question gets inserted: " + question.toString());
-        return ResponseEntity.ok().build();
+        Question newQuestion = QuestionService.insertQuestion(question);
+        if (newQuestion == null) {
+            log.info("Question could not be saved");
+            return ResponseEntity.notFound().build();
+        } else {
+            log.info("Question is now saved. Cool!");
+            return ResponseEntity.ok().build();
+        }
     }
 }
