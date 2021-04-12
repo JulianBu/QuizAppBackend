@@ -17,13 +17,22 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean checkLogin(String loginname, String password) {
-        User user = findUser(loginname);
-        if (user.getUsername().equals(loginname) && user.getPassword().equals(password)) {
-            log.info("User exists and is valid.");
-            return true;
-        } else {
-            return false;
+        try {
+            User user = findUser(loginname);
+            log.info("USER" + user.toString());
+            if (user.getUsername().equals(loginname) && user.getPassword().equals(password)) {
+                log.info("User exists and is valid.");
+                return true;
+            } else {
+                log.info("User credentials are not valid");
+                return false;
+            }
+        } catch (NullPointerException e) {
+            log.error("User is not in Database Nullpointer");
+        } catch (Exception e) {
+            log.error("User is not in Database");
         }
+        return false;
     }
 
     @Override
@@ -47,9 +56,9 @@ public class UserServiceImpl implements UserService {
     public User findUser(String loginname) {
         User user = userRepo.findByUsername(loginname);
         if (user == null) {
-            return user;
+            return null;
         }
-        return null;
+        return user;
     }
 
 }
