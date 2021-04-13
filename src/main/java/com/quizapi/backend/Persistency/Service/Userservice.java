@@ -8,4 +8,6 @@ public interface UserService {
     User registerUser(User newUser);
 
     User findUser(String loginname);
+
+    void updateScore(String loginname);
 }
