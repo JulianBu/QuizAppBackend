@@ -54,7 +54,6 @@ public class Question implements Serializable {
     @Column(name = "WRONGANSER_3")
     private String wrongAnswer_3;
 
-    @NonNull
     @Size(min = 1, max = 3, message = "Put in a number between 1 and 3. 1 is easy. 3 is hard")
     @Column(name = "SEVERITY")
     private int severity;

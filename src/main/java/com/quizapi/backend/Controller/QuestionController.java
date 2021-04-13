@@ -29,7 +29,7 @@ public class QuestionController {
             return ResponseEntity.notFound().build();
         } else {
             log.info("Question is now saved. Cool!");
-            return ResponseEntity.ok().build();
+            return ResponseEntity.ok(newQuestion);
         }
     }
 }

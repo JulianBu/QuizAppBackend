@@ -18,12 +18,25 @@ public class QuestionServiceImpl implements QuestionService {
     public Question insertQuestion(Question newQuestion) {
         try {
             log.info("Insert Question: " + newQuestion.getQuestion());
-            return questionRepo.save(newQuestion);
-
+            Question q = findQuestion(newQuestion.getQuestion());
+            if (q == null) {
+                return questionRepo.save(newQuestion);
+            } else {
+                return null;
+            }
         } catch (Exception e) {
             log.error("Question could be saved", e);
             return null;
         }
+    }
+
+    @Override
+    public Question findQuestion(String question) {
+        Question q = questionRepo.findByQuestion(question);
+        if (q == null) {
+            return null;
+        }
+        return q;
     }
 
 }

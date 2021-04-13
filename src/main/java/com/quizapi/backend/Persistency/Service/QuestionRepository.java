@@ -17,6 +17,8 @@ public interface QuestionRepository extends JpaRepository<Question, Long> {
 
     LinkedList<Question> findBySeverity(int severity);
 
+    Question findByQuestion(String question);
+
     void delete(Question question);
 
     void deleteAll();
