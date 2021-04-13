@@ -41,7 +41,13 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     public Question findRandomQuestion() {
-        return questionRepo.getOne(2L);
+        try {
+            log.info("Getting Random Question");
+            return questionRepo.getRandomQuestion();
+        } catch (Exception e) {
+            log.error("Could not get random question");
+            return null;
+        }
     }
 
 }

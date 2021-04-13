@@ -38,7 +38,7 @@ public class QuestionController {
     @ResponseBody
     public ResponseEntity<Question> getQuestion() {
         Question q = QuestionService.findRandomQuestion();
-        return ResponseEntity.ok().build();
-        
+        return ResponseEntity.ok(q);
+
     }
 }
