@@ -6,6 +6,7 @@ import com.quizapi.backend.Persistency.Service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -31,5 +32,13 @@ public class QuestionController {
             log.info("Question is now saved. Cool!");
             return ResponseEntity.ok(newQuestion);
         }
+    }
+
+    @GetMapping("quizapp/get-question")
+    @ResponseBody
+    public ResponseEntity<Question> getQuestion() {
+        Question q = QuestionService.findRandomQuestion();
+        return ResponseEntity.ok().build();
+        
     }
 }

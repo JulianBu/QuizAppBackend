@@ -39,4 +39,9 @@ public class QuestionServiceImpl implements QuestionService {
         return q;
     }
 
+    @Override
+    public Question findRandomQuestion() {
+        return questionRepo.getOne(2L);
+    }
+
 }
