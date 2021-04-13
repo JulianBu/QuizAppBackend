@@ -9,5 +9,5 @@ public interface UserService {
 
     User findUser(String loginname);
 
-    void updateScore(String loginname);
+    User updateScore(String loginname, int newScore);
 }

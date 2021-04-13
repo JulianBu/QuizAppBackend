@@ -48,7 +48,15 @@ public class UserController {
     }
 
     @GetMapping("quizapp/update-score")
-    public void updateScore() {
-
+    public ResponseEntity<User> updateScore(@RequestBody User user) {
+        log.info("Updating the score of user %s", user.getUsername());
+        User newUser = userService.updateScore(user.getUsername(), 10);
+        if (newUser == null) {
+            log.info("User is not valid");
+            return ResponseEntity.notFound().build();
+        } else {
+            log.info("Score of user %s has been updated", user.getUsername());
+            return ResponseEntity.ok(newUser);
+        }
     }
 }

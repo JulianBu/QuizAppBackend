@@ -62,7 +62,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void updateScore(String loginname) {
-
+    public User updateScore(String loginname, int newScore) {
+        User user = userRepo.findByUsername(loginname);
+        if (user == null) {
+            return null;
+        } else {
+            user.setScore(user.getScore() + newScore);
+            userRepo.saveAndFlush(user);
+            return user;
+        }
     }
 }
