@@ -1,5 +1,7 @@
 package com.quizapi.backend.Controller;
 
+import java.util.LinkedList;
+
 import com.quizapi.backend.Persistency.Entities.Question;
 import com.quizapi.backend.Persistency.Service.QuestionService;
 
@@ -38,7 +40,15 @@ public class QuestionController {
     @ResponseBody
     public ResponseEntity<Question> getQuestion() {
         Question q = QuestionService.findRandomQuestion();
+        log.info("The Question: " + q);
         return ResponseEntity.ok(q);
 
+    }
+
+    @GetMapping("quizapp/get-all-questions")
+    @ResponseBody
+    public ResponseEntity<LinkedList<Question>> getAllQuestions() {
+        LinkedList<Question> questions = QuestionService.getAllQuestions();
+        return ResponseEntity.ok(questions);
     }
 }

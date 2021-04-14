@@ -20,7 +20,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "QUESTION")
+@Table(name = "QUIZQUESTION")
 public class Question implements Serializable {
     private static final long serialVersionUID = -4936049134302300393L;
 

@@ -1,5 +1,10 @@
 package com.quizapi.backend.Persistency.Service;
 
+import java.util.LinkedList;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import com.quizapi.backend.Persistency.Entities.Question;
 import com.quizapi.backend.Persistency.Repository.QuestionRepository;
 
@@ -14,6 +19,9 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Autowired
     QuestionRepository questionRepo;
+
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Override
     public Question insertQuestion(Question newQuestion) {
@@ -43,12 +51,19 @@ public class QuestionServiceImpl implements QuestionService {
     @Override
     public Question findRandomQuestion() {
         try {
-            log.info("Getting Random Question");
-            return questionRepo.getRandomQuestion();
+            Question q = questionRepo.getRandomQuestion();
+            log.info("Getting Random Question: " + q);
+            return q;
         } catch (Exception e) {
-            log.error("Could not get random question");
+            log.error("Could not get random question", e);
             return null;
         }
+    }
+
+    @Override
+    public LinkedList<Question> getAllQuestions() {
+
+        return questionRepo.findAllByOrderByQuestionAsc();
     }
 
 }
