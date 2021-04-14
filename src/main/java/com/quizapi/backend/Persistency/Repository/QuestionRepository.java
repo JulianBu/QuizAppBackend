@@ -18,7 +18,7 @@ public interface QuestionRepository extends JpaRepository<Question, Long> {
 
     LinkedList<Question> findBySeverity(int severity);
 
-    @Query(value = "SELECT * FROM QUIZQUESTION RAND() LIMIT 1", nativeQuery = true)
+    @Query(value = "SELECT * FROM QUIZQUESTION ORDER BY RAND() LIMIT 1", nativeQuery = true)
     Question getRandomQuestion();
 
     Question findByQuestion(String question);
