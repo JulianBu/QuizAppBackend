@@ -1,6 +1,7 @@
 package com.quizapi.backend.Persistency.Service;
 
 import com.quizapi.backend.Persistency.Entities.Question;
+import com.quizapi.backend.Persistency.Repository.QuestionRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

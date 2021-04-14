@@ -1,6 +1,7 @@
 package com.quizapi.backend.Persistency.Service;
 
 import com.quizapi.backend.Persistency.Entities.User;
+import com.quizapi.backend.Persistency.Repository.UserRepository;
 
 import org.hibernate.NonUniqueResultException;
 import org.springframework.beans.factory.annotation.Autowired;

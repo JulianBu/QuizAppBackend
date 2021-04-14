@@ -1,4 +1,4 @@
-package com.quizapi.backend.Persistency.Service;
+package com.quizapi.backend.Persistency.Repository;
 
 import java.util.LinkedList;
 
