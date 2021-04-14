@@ -1,5 +1,7 @@
 package com.quizapi.backend.Persistency.Service;
 
+import java.util.LinkedList;
+
 import com.quizapi.backend.Persistency.Entities.User;
 import com.quizapi.backend.Persistency.Repository.UserRepository;
 
@@ -72,5 +74,10 @@ public class UserServiceImpl implements UserService {
             userRepo.saveAndFlush(user);
             return user;
         }
+    }
+
+    @Override
+    public LinkedList<User> getAllUsers() {
+        return userRepo.findAllByOrderByUsernameAsc();
     }
 }

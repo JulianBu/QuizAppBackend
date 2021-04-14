@@ -1,5 +1,7 @@
 package com.quizapi.backend.Controller;
 
+import java.util.LinkedList;
+
 import com.quizapi.backend.Persistency.Entities.User;
 import com.quizapi.backend.Persistency.Service.UserService;
 
@@ -58,5 +60,12 @@ public class UserController {
             log.info("Score of user %s has been updated", user.getUsername());
             return ResponseEntity.ok(newUser);
         }
+    }
+
+    @GetMapping("quizapp/get-all-users")
+    @ResponseBody
+    public ResponseEntity<LinkedList<User>> getAllUsers() {
+        LinkedList<User> users = userService.getAllUsers();
+        return ResponseEntity.ok(users);
     }
 }
