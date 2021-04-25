@@ -4,6 +4,7 @@ import java.util.LinkedList;
 
 import com.quizapi.backend.Persistency.Entities.Question;
 import com.quizapi.backend.Persistency.Service.QuestionService;
+import com.quizapi.backend.Utils.Constants;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,18 +12,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
+@RequestMapping(path = Constants.QUIZAPP)
 public class QuestionController {
 
     @Autowired
     private QuestionService QuestionService;
 
-    @PostMapping("quizapp/insertQuestion")
+    @PostMapping("/insertQuestion")
     @ResponseBody
     public ResponseEntity<Question> insertQuestion(@RequestBody Question question) {
         log.info("Question gets inserted: " + question.toString());
@@ -36,7 +39,7 @@ public class QuestionController {
         }
     }
 
-    @GetMapping("quizapp/get-question")
+    @GetMapping("/get-question")
     @ResponseBody
     public ResponseEntity<Question> getQuestion() {
         Question q = QuestionService.findRandomQuestion();
@@ -45,7 +48,7 @@ public class QuestionController {
 
     }
 
-    @GetMapping("quizapp/get-all-questions")
+    @GetMapping("/get-all-questions")
     @ResponseBody
     public ResponseEntity<LinkedList<Question>> getAllQuestions() {
         LinkedList<Question> questions = QuestionService.getAllQuestions();

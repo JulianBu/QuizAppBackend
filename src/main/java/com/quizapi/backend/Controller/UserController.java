@@ -4,6 +4,7 @@ import java.util.LinkedList;
 
 import com.quizapi.backend.Persistency.Entities.User;
 import com.quizapi.backend.Persistency.Service.UserService;
+import com.quizapi.backend.Utils.Constants;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,18 +12,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
+@RequestMapping(path = Constants.QUIZAPP)
 public class UserController {
 
     @Autowired
     private UserService userService;
 
-    @PostMapping("/quizapp/register")
+    @PostMapping("/register")
     @ResponseBody
     public ResponseEntity<User> register(@RequestBody User user) {
         log.info("Incoming User " + user.toString());
@@ -36,7 +39,7 @@ public class UserController {
         }
     }
 
-    @PostMapping("quizapp/login")
+    @PostMapping("/login")
     @ResponseBody
     public ResponseEntity<User> login(@RequestBody User user) {
         log.info("User wants to login: " + user.toString());
@@ -49,7 +52,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("quizapp/update-score")
+    @GetMapping("/update-score")
     public ResponseEntity<User> updateScore(@RequestBody User user) {
         log.info("Updating the score of user %s", user.getUsername());
         User newUser = userService.updateScore(user.getUsername(), 10);
@@ -62,7 +65,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("quizapp/get-all-users")
+    @GetMapping("/get-all-users")
     @ResponseBody
     public ResponseEntity<LinkedList<User>> getAllUsers() {
         LinkedList<User> users = userService.getAllUsers();
