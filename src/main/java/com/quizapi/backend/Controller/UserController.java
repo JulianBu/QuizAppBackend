@@ -34,7 +34,7 @@ public class UserController {
             log.info("User could not be saved.");
             return ResponseEntity.notFound().build();
         } else {
-            log.info("THE NEW USER " + newUser.toString());
+            log.info("The new User is {}", newUser.toString());
             return ResponseEntity.ok(newUser);
         }
     }
@@ -54,13 +54,13 @@ public class UserController {
 
     @GetMapping("/update-score")
     public ResponseEntity<User> updateScore(@RequestBody User user) {
-        log.info("Updating the score of user %s", user.getUsername());
+        log.info("Updating the score of user {}", user.getUsername());
         User newUser = userService.updateScore(user.getUsername(), 10);
         if (newUser == null) {
             log.info("User is not valid");
             return ResponseEntity.notFound().build();
         } else {
-            log.info("Score of user %s has been updated", user.getUsername());
+            log.info("Score of user {} has been updated", user.getUsername());
             return ResponseEntity.ok(newUser);
         }
     }

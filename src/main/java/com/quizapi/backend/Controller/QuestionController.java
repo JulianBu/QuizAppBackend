@@ -28,10 +28,10 @@ public class QuestionController {
     @PostMapping("/insertQuestion")
     @ResponseBody
     public ResponseEntity<Question> insertQuestion(@RequestBody Question question) {
-        log.info("Question gets inserted: " + question.toString());
+        log.info("Question gets inserted: {}", question.toString());
         Question newQuestion = QuestionService.insertQuestion(question);
         if (newQuestion == null) {
-            log.info("Question could not be saved");
+            log.info("Question could not be saved.");
             return ResponseEntity.notFound().build();
         } else {
             log.info("Question is now saved. Cool!");
@@ -43,7 +43,7 @@ public class QuestionController {
     @ResponseBody
     public ResponseEntity<Question> getQuestion() {
         Question q = QuestionService.findRandomQuestion();
-        log.info("The Question: " + q);
+        log.info("The Question: {}", q);
         return ResponseEntity.ok(q);
 
     }
