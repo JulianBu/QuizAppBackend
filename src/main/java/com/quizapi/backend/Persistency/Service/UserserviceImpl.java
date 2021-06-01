@@ -70,7 +70,7 @@ public class UserServiceImpl implements UserService {
         if (user == null) {
             return null;
         } else {
-            user.setScore(user.getScore() + newScore);
+            user.setScore(newScore);
             userRepo.saveAndFlush(user);
             return user;
         }

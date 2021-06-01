@@ -44,18 +44,20 @@ public class UserController {
     public ResponseEntity<User> login(@RequestBody User user) {
         log.info("User wants to login: " + user.toString());
         if (userService.checkLogin(user.getUsername(), user.getPassword())) {
+            User newUser = userService.findUser(user.getUsername());
             log.info("User is ready to login");
-            return ResponseEntity.ok(user);
+            return ResponseEntity.ok(newUser);
         } else {
             log.info("User credentials are wrong");
             return ResponseEntity.unprocessableEntity().build();
         }
     }
 
-    @GetMapping("/update-score")
+    @PostMapping("/update-score")
+    @ResponseBody
     public ResponseEntity<User> updateScore(@RequestBody User user) {
         log.info("Updating the score of user {}", user.getUsername());
-        User newUser = userService.updateScore(user.getUsername(), 10);
+        User newUser = userService.updateScore(user.getUsername(), user.getScore());
         if (newUser == null) {
             log.info("User is not valid");
             return ResponseEntity.notFound().build();
